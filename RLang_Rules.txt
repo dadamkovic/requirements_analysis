@@ -1,0 +1,25 @@
+RLang Rules
+
+--
+Declarations: 
+  - start with '#'
+  - form is: #<declaration-type> <declared-item>(<optional-alias>)
+
+Declaration Types:
+----------------
+Requires Definition:
+----------------
+//sig groups used for grouping related signals
+#sig_group some_sig_group("Alias of Sig. Group")
+
+
+
+----------------
+Doesn't Require Definition:
+----------------
+//alias replaces alias expression with chosen text
+#alias EXAMPLE_ALIAS("This will show up in generated text where 'EXAMPLE_ALIAS' is used")
+
+
+//symbolic shall only be used  
+#symbolic Example_Symbolic("Example Symbolic")

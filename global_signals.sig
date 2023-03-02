@@ -1,0 +1,77 @@
+Keywords:
+group, origin, used_by, description, env, system, name, value, descr, signal, TODO
+
+Signals:
+-----------------------------------------
+
+//signal groups that give information about the type of the signal
+//have to be defined before the signal group is used
+
+
+#sig_group hardwire_dig
+#sig_group hardwire_an("Analog Hardwire Signals")
+#sig_group LIN1, LIN2("WSMRR-BCM Lin Network")
+#sig_group CAN1, CAN2
+
+
+//definition of the signals themselves are made within the signal group
+
+@sig_group(hardwire_dig)
+{
+  descr = "The signal group is for all generic electrical signals transmitted by wire." 
+  
+  @signal(SensorStatus)
+  {
+    origin = system // can also specify a specific system block that generates the signal e.g. block_B
+    used_by = (block_A, block_B, block_C)
+    value = (SensorFail=0, 
+             SensorOk=5)[V]
+    descr = "The signal informs about the status of the input from sensor X"
+  }
+  
+  @signal(LedOutput)
+  {
+    origin = WSMRR
+    used_by = (env)
+    value = (0-3.3 : 0.1)[V]
+    descr = "Output of the uC PIN3 - connected to the external switch LED"
+}
+
+@sig_group(hardwire_an)
+{
+  @signal(AnalogSignalExt)
+  {
+    origin = env
+    used_by = (block_X)
+    value = (0-20 : 0.01)[V] //<rangemin>-<range max> : <resolution>) [<optional - units>]
+    descr = "Voltage on PIN3 of the uC (winding voltage)"
+  }
+}
+
+@sig_group(LIN2)
+{
+  @signal(BCM_To_WSMRR_ShortDrop)
+  {
+    origin = BCM
+    used_by = (WSMRR)
+    value = (NoShortDrop=0, 
+             ShortDrop=1)
+    descr = "Short drop request for the WSMRR"
+  }
+  
+  @signal(WSMRR_To_BCM_WindowStatus)
+  {
+    origin = WSMRR
+    used_by = (BCM)
+    value = (Idle=0, 
+             Running Dowm=1, 
+             Running Up=2, 
+             Reversing=3,
+             ShortDrop=4)
+    descr = "Window status feedback to BCM unit"
+  }
+}
+  
+  
+      
+      

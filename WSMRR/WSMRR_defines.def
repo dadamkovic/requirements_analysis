@@ -1,0 +1,48 @@
+#ext_ref CS_WSMRR("Customer Requirements WSMRR")
+
+//symbolic refferrence declared - doesn't need to be defined
+#symbolic WSMRR_Window_Pos("Window Position")
+#symbolic ShortDropMax("Maximum Short Drop Position")
+
+
+//local signal group declares
+#sig_group WSMRR_Internal_States("WSMRR: Internal States")
+#sig_group WSMRR_Motor_Signals("WSMRR: Motor control & monitoring")
+
+//document definitions
+@ext_ref(CS_WSMRR)
+{
+  @ref = "some-url-or-other.com/docid001"
+  @version = "1.1"
+}
+
+//local signal group definitions
+
+@sig_group(WSMRR_Internal_States)
+{
+  @descr = "Internal states of the WSMRR" 
+
+  @signal(WSMRR_Door_State)
+  {
+    @alias = "Door State"  //when alias is defined signal will be refferred by it in the generated text 
+    @value = (DoorOpen, DoorClosed)
+    @descr = "Signals the state of the door."
+  }
+}
+
+@sig_group(WSMRR_Motor_Signals)
+{
+  @descr = "Signals for controlloing and monitoring the WSMRR motor lines)
+  
+  @signal(WSMRR_Motor_Movement)
+  {
+    @alias = "WSMRR Motor Movement"
+    @value = (Idle("Idle"),
+             ManUp("Manual Up"),
+             ManDown("Manual Down),
+             SDUp("Short Drop Up"),
+             SDDown("Short Drop Down))
+             
+    @descr = "Possible states of the motor"
+  }
+}

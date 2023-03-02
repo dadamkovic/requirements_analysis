@@ -1,0 +1,68 @@
+#functional_block(WSMRR)
+
+#using "global_signals.sig"
+#using "WSMRR_defines.def"
+
+@block(WSMRR)
+{
+  @category(short_drop_cat, "Short Drop")
+  {
+    @requirement(sd_door_opened, "SD Door Opened")
+    {
+      @type = functional
+      @upstream_ref = NONE
+      @test_id = NONE
+      
+      @condition
+      {
+        (BCM_To_WSMRR_ShortDrop -> ShortDrop)
+      }
+      
+      @action
+      {
+        (WSMRR_Door_State = DoorOpen)
+      }
+    }
+
+    @requirement(sd_door_closed, "SD Door Closed")
+    {
+      @type = functional
+      @upstream_ref = NONE
+      @test_id = NONE
+      
+      @condition
+      {
+        (BCM_To_WSMRR_ShortLift -> ShortLift)
+      }
+      
+      @action
+      {
+        (WSMRR_Door_State = DoorClosed)
+      }
+    }
+    
+    @requirement(sd_up_req, "Trigger SD Up")
+    {
+      @type = functional      
+      @upstream_ref = CS_WSMRR
+      @test_id = TODO
+      @implem_id = TODO
+      @related_to = TODO
+      
+      @condition
+      {
+        (WSMRR_Door_State -> DoorOpen)
+        AND
+        (WSMRR_Window_Pos < ShortDropMax)
+      }
+      
+      @action
+      {
+        (WSMRR_Motor_Movement = SDDown)
+      }
+    }
+    
+    
+  }
+}
+
