@@ -7,19 +7,202 @@ Declarations:
 
 Declaration Types:
 ----------------
-Requires Definition:
-----------------
-//sig groups used for grouping related signals
-#sig_group some_sig_group("Alias of Sig. Group")
+  Requires Definition:
+  ----------------
+  //sig groups used for grouping related signals
+  #sig_group <some_sig_group>(<"Alias of Sig. Group">)
+
+  //declaration of external source
+  #ext_ref <ext_ref_name>(<"Alias">)
+
+  //declaration of symbolic variable - used for non-signal variables
+  //that can change value
+  #symbolic <exmaple_symbolic>(<"Alias">)
+
+  //declaration of property - used for non-signal constants
+  //that are tied to funcitonal blocks
+  #property <example-property>(<"Alias">)
+
+  //blocks are self-conatained groupings of signals and fucntionality  
+  #block <example-block><("Alias">)
+
+  //black box block (bb_block) has no functionality defined, only defines interface
+  #bb_block <example-bb_block>(<"Alias">)
+
+  ----------------
+  Doesn't Require Definition:
+  ----------------
+  //alias replaces alias expression with chosen text
+  #alias <EXAMPLE_ALIAS><("This will show up in generated text where 'EXAMPLE_ALIAS' is used")>
+
+  //using for inclussion of defnition .def file
+  #using <file-to-include.def>
+
+
+Definintions: 
+  - start with '@'
+  - form is: @<declaration-type> <declared-item>(<optional-alias>)
+             {
+              @field0 = ...;
+              @field1 = ...;
+              ...
+              @field2 = ...;
+             }
+
+             OR
+
+             @<declaration-type> <declared-item>(<optional-alias>)
+             {
+              @field0
+              {
+                ...
+              }
+              ...
+             }
+
+  *note that mix of both styles '=' and '{...}' is used dependng on field
+  
+  -----------------
+  Requires declaration
+  -----------------
+  @block(<example-block>)
+  {
+    @category(<example-category>,<"Alias">)
+    {
+      @desc = ...             //optional
+      @requirement(<example1-requirement>,"<Alias>")
+      {
+        @type = functional;
+        @derived_id = ...; //optional
+        @test_id = ...;
+        @variant = ...;    //optional
+        @comment = "";     //optional
+        @condition
+        {
+          (cond1)
+          AND
+          {
+            (cond2)
+            OR
+            (cond3)
+          }
+        }
+        @cond_true
+        {
+          (action1)
+          (action2)
+        }
+        @cond_false     //optional
+        {
+          (action3)
+          (action4)
+        }
+
+        
+      }
+      @requirement(<example2-requirement>,"<Alias>")
+      {
+        @type = non-functional;
+        @derived_id = ...;     //optional
+        @test_id = ...;        //optional
+        @variant = ...;        //optional
+        
+        @condition
+        {
+          condition0;
+        }
+
+        @property
+        {
+          property0;
+        }
+      }
+    }
+  }
+
+  @bb_block(<example-bb_block>)
+  {
+    @desc = ""  //optional 
+    @sig_in
+    {
+      InputSig1;
+      inputSig2;
+      ...
+    }
+    @sig_out
+    {
+      OutpuitSig1;
+      OutputSig2;
+      ...
+    }
+    @sig_inout
+    {
+      InoutSig1;
+      InoutSig2;
+      ...
+    }
+  }
+
+  @symbolic <example-symbolic>
+  {
+    @type = ...;
+    @desc = ...;    //optional
+  }
+
+  @property <example-symbolic>
+  {
+    @type = ...;
+    @desc = ...;     //optional
+  }
+
+  @sig_group <example-sig_group>
+  {
+    @descr = ""     //optional
+    @signal(<example-signal>, "Alias")
+    {
+      @source = env || system;
+      @type = ... //optional 
+      @range = ... //for enum types, when defined can narrow down the range
+      @vals       //when type is specified and vals not entire range ot type is used
+      {
+        Val1(<"Alias">);
+        Val2(<"Alias">);
+        ...
+      }
+    }
+  }
 
 
 
-----------------
-Doesn't Require Definition:
-----------------
-//alias replaces alias expression with chosen text
-#alias EXAMPLE_ALIAS("This will show up in generated text where 'EXAMPLE_ALIAS' is used")
+  -----------------
+  Doesn't require declaration
+  -----------------
 
+  @unit <example-unit>(<"Alias">)
+  {
+    @type = int || float || enum || binary;
+    @range = <min : max : step;  //step is optional
+    @vals                        //vals is used in case of 'enum' type
+    {
+      val1("Alias");            //alias is optional
+      val2("Alias");
+      ...
+    }
+  }
 
-//symbolic shall only be used  
-#symbolic Example_Symbolic("Example Symbolic")
+  @const <example-const>(<"Alias">)
+  {
+    @type = ...;
+    @val = ...;
+    @desc = "";     //optional
+  }
+
+  @ext_catageory(<example-category>, <"Alias">)
+  {  
+    @external (<example-external>, <"Alias">)
+    {
+      text = "";
+      ref = "";
+    }
+  } 
+
