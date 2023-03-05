@@ -32,22 +32,22 @@
       
       @condition
       {
-        (BCM_To_WSMRR_ShortLift -> ShortLift)
+        BCM_To_WSMRR_ShortLift -> ShortLift;
       }
       
       @action
       {
-        (WSMRR_Door_State = DoorClosed)
+        WSMRR_Door_State = DoorClosed;
       }
     }
     
     @requirement(sd_up_req, "Trigger SD Up")
     {
-      @type = functional      
-      @upstream_ref = CS_WSMRR
-      @test_id = TODO
-      @implem_id = TODO
-      @related_to = TODO
+      @type = functional;      
+      @upstream_ref = CS_WSMRR;
+      @test_id = TODO;
+      @implem_id = TODO;
+      @related_to = TODO;
       
       @condition
       {

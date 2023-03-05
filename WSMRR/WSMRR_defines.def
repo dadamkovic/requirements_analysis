@@ -1,8 +1,12 @@
+//
 #ext_ref CS_WSMRR("Customer Requirements WSMRR")
 
 //symbolic refferrence declared - doesn't need to be defined
 #symbolic WSMRR_Window_Pos("Window Position")
 #symbolic ShortDropMax("Maximum Short Drop Position")
+#symbolic ShortDropPos("Short Drop Postion")
+
+#propety HousingColor("WSMRR's Housing Color")
 
 
 //local signal group declares
@@ -15,6 +19,22 @@
   @ref = "some-url-or-other.com/docid001"
   @version = "1.1"
 }
+
+
+
+//symbolic definition
+@symbolic ShortDropPos()
+{
+  @type = QT
+  @desc = ... //optional
+}
+
+@property HousingColor()
+{
+  @type = Color
+  @desc = ... //optional
+}
+
 
 //local signal group definitions
 
